@@ -9,9 +9,9 @@ import moment from "moment";
  */
 function Entry(props) {
   const [date, setDate] = useState(
-    new moment(props.date).utc().format("YYYY-MM-DD")
+    new moment(props.entry.date).utc().format("YYYY-MM-DD")
   );
-  const [weight, setWeight] = useState(props.weight);
+  const [weight, setWeight] = useState(props.entry.weight);
   const [isModalOpen, setModalOpen] = useState(false);
   const { deleteEntry, updateEntry } = useContext(GlobalContext);
 
@@ -37,15 +37,18 @@ function Entry(props) {
    */
   const editEntry = async (e) => {
     e.preventDefault();
-    updateEntry(props.id, date, weight);
+    updateEntry(props.entry._id, date, weight);
   };
 
   return (
     <tr>
-      <td>{new moment(props.date).utc().format("MMMM Do, YYYY")}</td>
-      <td>{props.weight}</td>
+      <td>{new moment(props.entry.date).utc().format("MMMM Do, YYYY")}</td>
+      <td>{props.entry.weight}</td>
       <td>
-        <button className="delete-btn" onClick={() => deleteEntry(props.id)}>
+        <button
+          className="delete-btn"
+          onClick={() => deleteEntry(props.entry._id)}
+        >
           x
         </button>
       </td>

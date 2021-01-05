@@ -57,12 +57,9 @@ export const GlobalProvider = ({ children }) => {
     try {
       const response = await fetch("http://localhost:5000/entries/" + username);
       const jsonData = await response.json();
-      let sortedDate = jsonData.sort(
-        (a, b) => new Date(b.date) - new Date(a.date)
-      );
       dispatch({
         type: "GET_ENTRIES",
-        payload: sortedDate,
+        payload: jsonData,
       });
     } catch (err) {
       console.error(err.message);

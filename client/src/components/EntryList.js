@@ -11,25 +11,15 @@ function EntryList() {
   const history = useHistory();
   const { username, entries, getEntries } = useContext(GlobalContext);
 
-  const entryComponent = entries.map(function (entry) {
-    return (
-      <Entry
-        key={entry._id}
-        username={entry.username}
-        date={entry.date}
-        weight={entry.weight}
-        id={entry._id}
-      />
-    );
-  });
-
   useEffect(() => {
+    //console.log("A");
     if (username === "") {
       history.push("/");
     } else {
       getEntries(username);
     }
-  }, [history, username, getEntries]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -40,7 +30,11 @@ function EntryList() {
             <th>Weight(s)</th>
           </tr>
         </thead>
-        <tbody>{entryComponent}</tbody>
+        <tbody>
+          {entries.map((entry) => (
+            <Entry key={entry._id} entry={entry} />
+          ))}
+        </tbody>
       </table>
     </>
   );
